@@ -5,6 +5,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 @Getter
@@ -21,7 +22,7 @@ public class State {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @NotBlank(message = "The stateName cannot be empty")
+    @Pattern(regexp = "^[a-zA-Z\\d\\-\\s_]{1,20}$", message = "The stateName must contain from 1 to 20 latin letters, numbers, dash, space and underscore")
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
