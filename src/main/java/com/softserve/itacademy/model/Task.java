@@ -16,6 +16,7 @@ public class Task {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Size(min = 3, max = 200, message = "The taskName should be with minimum 3 and maximum 200 any symbols")
     @Column(name = "name", nullable = false)
     private String name;
 
