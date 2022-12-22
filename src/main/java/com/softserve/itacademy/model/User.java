@@ -1,7 +1,7 @@
 package com.softserve.itacademy.model;
 
-import lombok.*;
-import org.springframework.boot.context.properties.ConstructorBinding;
+import lombok.Data;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -10,10 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -27,11 +24,11 @@ public class User {
     private String email;
     @Column(name = "first_name", nullable = false)
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z\\d\\-\\s_]{1,20}$", message = "The stateName must contain from 1 to 20 latin letters, numbers, dash, space and underscore")
+    @Pattern(regexp = "^[A-Z][a-z]+?(?:-[A-Z][a-z]+?)+?$", message = "The firstName incorrect")
     private String firstName;
     @Column(name = "last_name", nullable = false)
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z\\d\\-\\s_]{1,20}$", message = "The stateName must contain from 1 to 20 latin letters, numbers, dash, space and underscore")
+    @Pattern(regexp = "^[A-Z][a-z]+?(?:-[A-Z][a-z]+?)+?$", message = "The lastName incorrect")
     private String lastName;
     @Column(name = "password", nullable = false)
     @NotNull
