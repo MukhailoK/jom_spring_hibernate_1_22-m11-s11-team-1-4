@@ -17,6 +17,7 @@ import java.util.Objects;
 @Table(name = "states")
 public class State {
 
+    @Setter(AccessLevel.PRIVATE)
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
