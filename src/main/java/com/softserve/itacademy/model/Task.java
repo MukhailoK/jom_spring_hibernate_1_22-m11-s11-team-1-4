@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -37,4 +38,16 @@ public class Task {
     @JoinColumn(name = "todo_id")
     private ToDo toDo;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(id, task.id) && Objects.equals(name, task.name) && priority == task.priority && Objects.equals(state, task.state) && Objects.equals(toDo, task.toDo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, priority, state, toDo);
+    }
 }
