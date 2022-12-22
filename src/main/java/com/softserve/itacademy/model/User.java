@@ -35,7 +35,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
-
+    @ManyToOne
     private Role role;
-
 }
