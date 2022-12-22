@@ -1,44 +1,34 @@
 package com.softserve.itacademy.model;
 
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Set;
 
-
+@Data
+@Entity(name = "todos")
 public class ToDo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private Long id;
+    @Column(name = "title", nullable = false)
     private String title;
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
     private User owner;
-    private OffsetDateTime createdAt;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    @Column(name = "created_at", nullable = false)
+    private OffsetDateTime createdAt = OffsetDateTime.now();
+    @ManyToMany(mappedBy = "collaboratorsTodos")
+    private List<User> collaborators;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public OffsetDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(OffsetDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-//TODO
 }
