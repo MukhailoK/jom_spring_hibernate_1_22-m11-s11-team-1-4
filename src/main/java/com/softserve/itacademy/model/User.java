@@ -1,80 +1,41 @@
 package com.softserve.itacademy.model;
 
-import javax.persistence.*;
+import lombok.*;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "user")
 public class User {
+    @Pattern(regexp = "^[a-zA-Z\\d\\-\\s_]{3,30}$"
+            , message = "The email must contain from 3 to 30 latin letters, numbers, dash, space and underscore")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+    @Pattern(regexp = "^[a-zA-Z\\d\\-\\s_]{1,20}$"
+            , message = "The firstName must contain from 1 to 20 latin letters, numbers, dash, space and underscore")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+    @Pattern(regexp = "^[a-zA-Z\\d\\-\\s_]{1,20}$"
+            , message = "The lastName must contain from 1 to 20 latin letters, numbers, dash, space and underscore")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+    @Pattern(regexp = "^[a-zA-Z\\d\\-\\s_]{8,20}$"
+            , message = "The password must contain from 8 to 20 latin letters, numbers, dash, space and underscore")
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Setter(AccessLevel.PRIVATE)
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     private Role role;
 
-    public User(long id, String email, String firstName, String lastName, String password, Role role) {
-        this.id = id;
-        this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
-        this.role = role;
-    }
-
-    public User() {
-
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Role getRole() {
-        return role;
-    }
 }
