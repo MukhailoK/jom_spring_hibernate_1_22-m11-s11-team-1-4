@@ -27,14 +27,13 @@ public class UserRepositoryTests {
         role.setName("NEW");
         role = roleRepository.save(role);
         user.setRole(role);
-        user.setId(4L);
         user.setLastName("Last-Name");
         user.setFirstName("First-Name");
         user.setEmail("user@gmai.com");
         user.setPassword("213werwer_!Q");
 
         user = userRepository.save(user);
-        assertEquals(4L, user.getId());
+        assertEquals(4, user.getId());
         assertEquals("Last-Name", user.getLastName());
         assertEquals("First-Name", user.getFirstName());
         assertEquals("user@gmai.com", user.getEmail());
