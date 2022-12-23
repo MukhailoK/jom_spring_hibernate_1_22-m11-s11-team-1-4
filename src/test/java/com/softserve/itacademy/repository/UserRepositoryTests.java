@@ -25,7 +25,7 @@ public class UserRepositoryTests {
     UserRepository userRepository;
 
     @Test
-    public void createRole() {
+    public void createUser() {
 
         User user = new User();
         Role role = new Role();

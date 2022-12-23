@@ -23,7 +23,7 @@ public class StateRepositoryTest {
     StateRepository stateRepository;
 
     @Test
-    public void createRole() {
+    public void addStateName() {
         State state = new State();
         state.setName("StateName");
         state.setName("StateName2");
