@@ -25,10 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ToDoRepositoryTests {
     @Autowired
     ToDoRepository toDoRepository;
-    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-    Validator validator = factory.getValidator();
-
-
 
     @Test
     public void createToDo() {
@@ -36,35 +32,14 @@ public class ToDoRepositoryTests {
         User owner = new User();
 
         OffsetDateTime time = OffsetDateTime.now();
-        todo.setId(1L);
         todo.setCreatedAt(time);
         todo.setTitle("myToDo");
         todo.setOwner(owner);
         toDoRepository.save(todo);
 
-        assertEquals(todo.getId(), 1L);
         assertEquals(todo.getCreatedAt(), time);
         assertEquals(todo.getTitle(), "myToDo");
         assertEquals(todo.getOwner(), owner);
-    }
-
-    @Test
-    public void createInvalidToDo(){
-        ToDo todo = new ToDo();
-        User owner = new User();
-
-
-
-        OffsetDateTime time = OffsetDateTime.now();
-        todo.setId(1L);
-        todo.setCreatedAt(time);
-        todo.setTitle("");
-        todo.setOwner(owner);
-        toDoRepository.save(todo);
-
-        Set<ConstraintViolation<ToDo>> violations = validator.validate(todo);
-        assertEquals(violations.size(), 1);
-
     }
 
 }
