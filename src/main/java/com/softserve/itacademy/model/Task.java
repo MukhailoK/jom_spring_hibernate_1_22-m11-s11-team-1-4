@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -11,16 +12,19 @@ import javax.validation.constraints.Size;
 @Table(name = "tasks")
 public class Task {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotNull
     @Size(min = 3, max = 200, message = "The taskName should be with minimum 3 and maximum 200 any symbols")
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "priority", nullable = false)
+    @NotNull
+    @Column(name = "priority")
     @Enumerated(value = EnumType.STRING)
     private Priority priority;
 

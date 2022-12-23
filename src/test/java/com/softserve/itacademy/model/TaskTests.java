@@ -8,6 +8,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.validation.constraints.Null;
 import java.time.OffsetDateTime;
 import java.util.Set;
 
@@ -49,15 +50,61 @@ public class TaskTests {
     }
 
     @Test
-    public void constraintViolationInvalidTaskName(){
-        Task task = validTask;
+    public void checkInvalidTaskName(){
+        Task task = new Task();
         task.setName("A");
+        task.setId(validTask.getId());
+        task.setState(validTask.getState());
+        task.setPriority(validTask.getPriority());
+
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         Set<ConstraintViolation<Task>> violations = validator.validate(task);
         assertEquals(1, violations.size());
     }
+
+    @Test
+    public void constraintViolationInvalidTaskName(){
+        Task task = new Task();
+        task.setName(null);
+        task.setId(validTask.getId());
+        task.setState(validTask.getState());
+        task.setPriority(validTask.getPriority());
+
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Task>> violations = validator.validate(task);
+        assertEquals(1, violations.size());
+    }
+
+
+    @Test
+    public void constraintViolationInvalidPriority(){
+        Task task = new Task();
+        task.setName(validTask.getName());
+        task.setId(validTask.getId());
+        task.setState(validTask.getState());
+        task.setPriority(null);
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Task>> violations = validator.validate(task);
+        assertEquals(1, violations.size());
+    }
+
+
+    @Test
+    public void createValidTask(){
+        Task task = validTask;
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Task>> violations = validator.validate(task);
+        assertEquals(0, violations.size());
+    }
+
 
 
 }
