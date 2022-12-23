@@ -48,7 +48,16 @@ public class TaskTests {
         validTask.setState(state);
     }
 
+    @Test
+    public void constraintViolationInvalidTaskName(){
+        Task task = validTask;
+        task.setName("A");
 
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Task>> violations = validator.validate(task);
+        assertEquals(1, violations.size());
+    }
 
 
 }
