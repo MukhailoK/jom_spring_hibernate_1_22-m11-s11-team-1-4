@@ -8,6 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
@@ -33,11 +39,10 @@ public class UserRepositoryTests {
         user.setPassword("213werwer_!Q");
 
         user = userRepository.save(user);
-        assertEquals(4, user.getId());
-        assertEquals("Last-Name", user.getLastName());
-        assertEquals("First-Name", user.getFirstName());
-        assertEquals("user@gmai.com", user.getEmail());
-        assertEquals("213werwer_!Q",user.getPassword());
-        assertEquals(role, user.getRole());
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+
+        assertEquals(0, violations.size());
     }
 }
